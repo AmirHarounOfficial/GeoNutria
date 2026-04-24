@@ -1,0 +1,53 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: auth-service
+    url: http://auth-service:80
+    routes:
+      - name: auth-routes
+        paths:
+          - /api/v1/auth
+
+  - name: user-service
+    url: http://user-service:80
+    routes:
+      - name: user-routes
+        paths:
+          - /api/v1/users
+          - /api/v1/farms
+          - /api/v1/fields
+
+  - name: billing-service
+    url: http://billing-service:80
+    routes:
+      - name: billing-routes
+        paths:
+          - /api/v1/billing
+          - /api/v1/subscriptions
+          - /api/v1/credits
+
+  - name: ai-orchestrator
+    url: http://ai-orchestrator:80
+    routes:
+      - name: ai-routes
+        paths:
+          - /api/v1/ai
+
+plugins:
+  - name: cors
+    config:
+      origins:
+        - "*"
+      methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      headers:
+        - "*"
+      exposed_headers:
+        - "*"
+      max_age: 3600
+      credentials: true
